@@ -1,0 +1,25 @@
+Questions :
+1. Difference between WHERE and SELECT
+2. Why department = NULL fails but IS NULL works
+3. What DISTINCT city, course removes vs doesn't
+4. In a=1 OR b=2 AND c=3 — which runs first, and why is that a trap
+5. Why can't LIMIT come before ORDER BY — both reasons
+6. "At least 5" vs "more than 5"
+
+The Questions I answered with honesty
+
+Q1 : SELECT is use to pick or select either specific column or whole column (with * ) ,
+    But where filters the selected column that were in SELECT query .
+ 
+Q2 : Im not sure about this but from me , NULL isn’t the actuall value neither empty one .
+    Just like letting the NULL word for placing the empty value , to tell them , bro it doesn’t contains the value.
+ 
+Q3 : DISTINCT keyword allows to remove all redundant values from the selected column ,
+    But as you told me previously , the column along side with DISTINCT column_name  , they were also sorted but they were shows repeated values with different matching . This what I got from the day 6 practices about the distinct.
+ 
+Q4 : Firstly , those were not in a proper format , they must in parenthesis . let see .
+    Primary run the a = 1 (because its 1st) and after that there are b=2 AND c=3 which indirectly in paranthesis ,which will shows different output . as what I see , don’t laugh ok
+ 
+Q5 : sql follows the structure to perform a query  , LIMIT has its define place at end of the query . I DON’T know the other reason
+ 
+Q6 : ‘More than 5 ‘ means values after 5 (not including 5 itself) but for "At least 5" more than 5 and 5 itself .
