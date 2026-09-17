@@ -1,5 +1,3 @@
--- New table with extra columns 
-
 CREATE TABLE Employees (
     emp_id INT,
     name VARCHAR(50),
@@ -59,82 +57,51 @@ INSERT INTO Employees VALUES
 
 
 -- Q1
-SELECT DISTINCT department
+SELECT COUNT(*) AS Total_Employees
 FROM Employees;
--- IT SHOW NULL AS VALUES THAT EXISTED IN THE TABLE 
 
 -- Q2
-SELECT name, city, salary
-FROM Employees
-WHERE salary > 100000 
-ORDER BY salary DESC ;
+SELECT COUNT(department) AS department_count
+FROM  Employees;
+-- THIS COUNTS THE TOTAL department WITH VALUES EXCEPT NULL VALUES 
 
 -- Q3
-SELECT name, experience_years, department 
-FROM Employees
-ORDER BY experience_years DESC
-LIMIT 5 ;
+SELECT SUM(salary) AS total_salary_paid 
+FROM Employees;
+-- THIS QUERY HAS THE MOST CONFUSING QUESTION
 
 -- Q4
-SELECT * 
-FROM Employees
-WHERE city IN ('Pune', 'Mumbai', 'Delhi')
-AND department = 'Engineering' ; 
+SELECT AVG(age)  AS avg_age
+FROM Employees ; 
 
--- Q5
-SELECT * 
-FROM Employees
-WHERE department IS NULL ; 
--- BY DOING department = NULL , ITS SHOWS THE DATA 
+-- Q5 
+SELECT MIN(salary) AS minimum_salary ,
+MAX(salary) AS maximum_salary 
+FROM Employees;
 
 -- Q6
-SELECT * 
-FROM Employees
-WHERE department IS NOT NULL  
-AND age BETWEEN 25 AND 35 ;
--- WELL I FACED WITH ERROR WITH ERROR 1064 WHCIH OCCURE DUE TO I USED THIS QUERY , AND age BETWEEN (25 AND 35 );
+SELECT AVG(salary) AS avg_salary 
+FROM Employees 
+WHERE department = 'Engineering'; 
 
 -- Q7
-SELECT name, salary
-FROM Employees
-WHERE department = 'Sales'
-ORDER BY salary ASC
-LIMIT 3;
--- I TRIED WITH SELECT name, salary , department FOR ME TO RECOGNIZE THAT IS ACTUALLY FROM Sales OR NOT 
+SELECT SUM(salary) AS total_salary_sales 
+FROM Employees 
+WHERE department = 'Sales'; 
 
 -- Q8
-SELECT name , department , salary 
+SELECT COUNT(*) AS employees_over_10y
 FROM Employees
-WHERE (department <> 'Finance'
-OR department IS NULL)
-AND salary BETWEEN 60000 AND 100000 ;
--- IN THIS QUERY I DECIDED WHICH COLUMN TO REPRESENT 
+WHERE experience_years > 10 ;
+-- NAMING ALL COLUMNS IS SUCK
 
 -- Q9
-SELECT DISTINCT city , department 
-FROM Employees ; 
--- THIS QUERY IS FROM THE DAY 5 , BUT YOU DAID DISTINCT BUT THIS QUERY GOT MULTIPLE REPITED DATA AMONG THEM , WHY ? EXPLAIN SHORTLY 
+SELECT AVG(experience_years) AS avg_exp_with_1l
+FROM Employees
+WHERE salary > 100000;
+-- THE OUTPUT IS 14.5263 . IS THAT TRUE ?
 
 -- Q10
-SELECT name , department , experience_years , salary 
-FROM Employees
-WHERE department = 'Finance' 
-OR experience_years > 15 
-ORDER BY salary DESC ; 
-
--- Q11
-SELECT name, age, salary 
-FROM Employees
-WHERE age < 30 
-AND experience_years < 5 
-ORDER BY salary DESC 
-LIMIT 5; 
-
--- Q12 
-SELECT * 
-FROM Employees
-WHERE city <> 'Bangalore'
-AND department <> 'Finance'
-AND experience_years >= 5 
-ORDER BY salary DESC
-LIMIT 3 ;
+SELECT MAX(salary) - MIN(salary) AS difference_salary 
+FROM Employees;
+-- THIS IS NEW LOGIC I ENCOUNTER WITH . (OUTPUT IS 178000 ANS ITS TRUE)
