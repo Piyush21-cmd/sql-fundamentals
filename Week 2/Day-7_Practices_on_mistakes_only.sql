@@ -184,6 +184,7 @@ GROUP BY city
 HAVING COUNT(*) >= 3 
 ORDER BY avg_salary DESC 
 LIMIT 3 ; 
+
 -- OUTPUT 
 /* Bangalore |         7 | 137571.4286 |
 | Mumbai    |         6 | 130333.3333 |
