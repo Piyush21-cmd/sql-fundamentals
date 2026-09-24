@@ -111,8 +111,6 @@ SELECT city ,
 FROM Employees
 GROUP BY city
 HAVING AVG(salary) > (COUNT(*) * 10000) ;
--- THIS ONE IS THE MOST SCAREIEST ONE 
--- before  ASSIST BY AI I UES THIS HAVING avg_salary > (COUNT(*) * 10000) , AND AFTER THAT I USE IN THE QUERY 
 
 -- Q4 FACT CHECK
 SELECT city , 
@@ -120,7 +118,7 @@ SELECT city ,
       AVG(salary) AS avg_salary
 FROM Employees
 GROUP BY city;
--- THE OUTPUT AS SAME AS THE ACTUALL QUESTION. i THINK , 4 * 10000 = 40000 , AND ITS AVERAGE IS KOLAKATA 42000 , MEANS ITS TRUE 
+E 
 
 
 -- Q5 
@@ -144,7 +142,6 @@ WHERE experience_years < 10
 GROUP BY department 
 ORDER BY total_salary DESC
 LIMIT 2; 
--- I CHECKED IT BY FACT CHECK AND ITS TRUE 
 
 
 
@@ -174,8 +171,7 @@ SELECT city , SUM(salary) AS total_salary
 FROM Employees
 WHERE department NOT IN ('Engineering' , 'Sales')
 GROUP BY city
-HAVING COUNT(*) >= 3;
--- BRO I USE COUNT(*) THAT WERE NOT IN  SELECT CLAUSE , HOW 
+HAVING COUNT(*) >= 3; 
 
 
 
@@ -201,7 +197,7 @@ FROM Employees
 WHERE salary > 80000
 GROUP BY city 
 HAVING COUNT(*) > 3 ;
--- YOU CHANGGED THE QUESTION HERE WHY 
+
 -- Q11 FACT CHECK
 SELECT city , COUNT(*) AS total_emp
 FROM Employees
