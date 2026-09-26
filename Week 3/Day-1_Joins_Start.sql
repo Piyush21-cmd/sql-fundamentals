@@ -1,3 +1,6 @@
+CREATE DATABASE org ; 
+
+USE org;
 CREATE TABLE Employees (
     emp_id INT,
     name VARCHAR(50),
@@ -80,174 +83,56 @@ UPDATE Employees SET dept_id = 3 WHERE department = 'Marketing';
 UPDATE Employees SET dept_id = 4 WHERE department = 'Finance';
 
 
--- Q1
-SELECT * FROM Departments;
--- IT EXECUTED 
-/*
-+---------+-------------+------------+---------+
-| dept_id | dept_name   | location   | budget  |
-+---------+-------------+------------+---------+
-|       1 | Engineering | Building A | 5000000 |
-|       2 | Sales       | Building B | 1500000 |
-|       3 | Marketing   | Building B | 2000000 |
-|       4 | Finance     | Building C | 3000000 |
-+---------+-------------+------------+---------+*/
+
+CREATE TABLE Projects (
+    project_id INT,
+    project_name VARCHAR(50),
+    dept_id INT,
+    status VARCHAR(20)
+);
+
+INSERT INTO Projects VALUES
+(1, 'Website Revamp', 1, 'Active'),
+(2, 'Mobile App', 1, 'Active'),
+(3, 'Lead Gen Campaign', 2, 'Completed'),
+(4, 'Brand Refresh', 3, 'Active'),
+(5, 'Q3 Audit', 4, 'Completed'),
+(6, 'Cloud Migration', 1, 'Active');
 
 
--- Q2 
-SELECT e.name , e.department , d.location  
-FROM Employees AS e
-INNER JOIN Departments AS d
+-- Q1: Confirm Projects table
+SELECT * FROM Projects;
+
+-- Q2: RIGHT JOIN - all departments, with matching employees
+SELECT e.name, d.dept_name
+FROM Employees e
+RIGHT JOIN Departments d
 ON e.dept_id = d.dept_id;
-/*
-+----------------+-------------+------------+
-| name           | department  | location   |
-+----------------+-------------+------------+
-| Rahul Sharma   | Engineering | Building A |
-| Priya Nair     | Engineering | Building A |
-| Aman Gupta     | Sales       | Building B |
-| Sneha Reddy    | Marketing   | Building B |
-| Rohit Verma    | Engineering | Building A |
-| Neha Singh     | Finance     | Building C |
-| Vikas Kumar    | Sales       | Building B |
-| Anjali Desai   | Engineering | Building A |
-| Karan Mehta    | Marketing   | Building B |
-| Pooja Iyer     | Finance     | Building C |
-| Arjun Rao      | Engineering | Building A |
-| Sahil Khan     | Sales       | Building B |
-| Kavya Menon    | Marketing   | Building B |
-| Mohit Jain     | Finance     | Building C |
-| Isha Patel     | Engineering | Building A |
-| Nikhil Bose    | Sales       | Building B |
-| Simran Kaur    | Engineering | Building A |
-| Aditya Joshi   | Finance     | Building C |
-| Tanya Malhotra | Marketing   | Building B |
-| Deepak Yadav   | Engineering | Building A |
-| Rajesh Nambiar | Finance     | Building C |
-| Shruti Agarwal | Marketing   | Building B |
-| Varun Chopra   | Engineering | Building A |
-| Ananya Ghosh   | Sales       | Building B |
-| Harsh Vardhan  | Finance     | Building C |
-| Divya Krishnan | Engineering | Building A |
-| Siddharth Roy  | Marketing   | Building B |
-| Nisha Bhatt    | Finance     | Building C |
-| Manish Tiwari  | Sales       | Building B |
-| Preeti Saxena  | Engineering | Building A |
-| Gaurav Sinha   | Marketing   | Building B |
-| Ritika Shah    | Engineering | Building A |
-| Swati Dubey    | Finance     | Building C |
-| Tarun Bajaj    | Sales       | Building B |
-| Lakshmi Iyer   | Engineering | Building A |
-| Vivek Anand    | Marketing   | Building B |
-| Sonal Mehra    | Finance     | Building C |
-| Kunal Shetty   | Engineering | Building A |
-| Rekha Pandey   | Sales       | Building B |
-| Amit Trivedi   | Engineering | Building A |
-| Jyoti Rawat    | Marketing   | Building B |
-| Suresh Babu    | Finance     | Building C |
-+----------------+-------------+------------+*/
 
+-- Q3: 3-table join - employee, department, project
+SELECT e.name, d.dept_name, p.project_name
+FROM Employees e
+INNER JOIN Departments d ON e.dept_id = d.dept_id
+INNER JOIN Projects p ON d.dept_id = p.dept_id;
+-- 72 rows (row multiplication - each employee appears once per department project)
 
--- Q3
-SELECT e.name , e.department , d.location 
-FROM Employees AS e
-LEFT JOIN Departments AS d 
-ON d.dept_id = e.dept_id;
-/*
-+----------------+-------------+------------+
-| name           | department  | location   |
-+----------------+-------------+------------+
-| Rahul Sharma   | Engineering | Building A |
-| Priya Nair     | Engineering | Building A |
-| Aman Gupta     | Sales       | Building B |
-| Sneha Reddy    | Marketing   | Building B |
-| Rohit Verma    | Engineering | Building A |
-| Neha Singh     | Finance     | Building C |
-| Vikas Kumar    | Sales       | Building B |
-| Anjali Desai   | Engineering | Building A |
-| Karan Mehta    | Marketing   | Building B |
-| Pooja Iyer     | Finance     | Building C |
-| Arjun Rao      | Engineering | Building A |
-| Riya Kapoor    | NULL        | NULL       |
-| Sahil Khan     | Sales       | Building B |
-| Kavya Menon    | Marketing   | Building B |
-| Mohit Jain     | Finance     | Building C |
-| Isha Patel     | Engineering | Building A |
-| Nikhil Bose    | Sales       | Building B |
-| Simran Kaur    | Engineering | Building A |
-| Aditya Joshi   | Finance     | Building C |
-| Tanya Malhotra | Marketing   | Building B |
-| Deepak Yadav   | Engineering | Building A |
-| Meera Pillai   | NULL        | NULL       |
-| Rajesh Nambiar | Finance     | Building C |
-| Shruti Agarwal | Marketing   | Building B |
-| Varun Chopra   | Engineering | Building A |
-| Ananya Ghosh   | Sales       | Building B |
-| Harsh Vardhan  | Finance     | Building C |
-| Divya Krishnan | Engineering | Building A |
-| Siddharth Roy  | Marketing   | Building B |
-| Nisha Bhatt    | Finance     | Building C |
-| Manish Tiwari  | Sales       | Building B |
-| Preeti Saxena  | Engineering | Building A |
-| Gaurav Sinha   | Marketing   | Building B |
-| Ritika Shah    | Engineering | Building A |
-| Akash Mishra   | NULL        | NULL       |
-| Swati Dubey    | Finance     | Building C |
-| Tarun Bajaj    | Sales       | Building B |
-| Lakshmi Iyer   | Engineering | Building A |
-| Vivek Anand    | Marketing   | Building B |
-| Sonal Mehra    | Finance     | Building C |
-| Kunal Shetty   | Engineering | Building A |
-| Rekha Pandey   | Sales       | Building B |
-| Amit Trivedi   | Engineering | Building A |
-| Jyoti Rawat    | Marketing   | Building B |
-| Suresh Babu    | Finance     | Building C |
-+----------------+-------------+------------+
-*/
+-- Q4: Project count per department
+SELECT d.dept_name, COUNT(p.project_id) AS Total_Projects
+FROM Departments d
+INNER JOIN Projects p
+ON d.dept_id = p.dept_id
+GROUP BY d.dept_name;
 
--- Q4
-SELECT COUNT(*) AS inner_join_total_count
-FROM Employees AS e 
-INNER JOIN Departments AS d
-ON e.dept_id = d.dept_id; 
+-- Q5: Active projects only
+SELECT d.dept_name, p.project_name, p.status
+FROM Departments d
+INNER JOIN Projects p
+ON d.dept_id = p.dept_id
+WHERE p.status = 'Active';
+
+-- Q6: Distinct employees connected to at least one project via their department
+SELECT COUNT(DISTINCT e.name) AS employees_with_projects
+FROM Employees e
+INNER JOIN Departments d ON e.dept_id = d.dept_id
+INNER JOIN Projects p ON d.dept_id = p.dept_id;
 -- 42
-
-SELECT COUNT(*) AS left_join_total_count
-FROM Employees AS e 
-LEFT JOIN Departments AS d
-ON e.dept_id = d.dept_id;
--- 45 
-
-
-
--- Q5
-SELECT e.name , e.salary , d.budget
-FROM Employees AS e
-INNER JOIN Departments AS d
-ON e.dept_id = d.dept_id
-WHERE e.salary > 100000;
-/*
-+----------------+--------+---------+
-| name           | salary | budget  |
-+----------------+--------+---------+
-| Priya Nair     | 125000 | 5000000 |
-| Neha Singh     | 150000 | 3000000 |
-| Anjali Desai   | 135000 | 5000000 |
-| Arjun Rao      | 180000 | 5000000 |
-| Mohit Jain     | 142000 | 3000000 |
-| Simran Kaur    | 128000 | 5000000 |
-| Aditya Joshi   | 165000 | 3000000 |
-| Deepak Yadav   | 105000 | 5000000 |
-| Rajesh Nambiar | 195000 | 3000000 |
-| Varun Chopra   | 112000 | 5000000 |
-| Harsh Vardhan  | 155000 | 3000000 |
-| Nisha Bhatt    | 172000 | 3000000 |
-| Preeti Saxena  | 138000 | 5000000 |
-| Ritika Shah    | 118000 | 5000000 |
-| Swati Dubey    | 160000 | 3000000 |
-| Lakshmi Iyer   | 130000 | 5000000 |
-| Sonal Mehra    | 188000 | 3000000 |
-| Amit Trivedi   | 175000 | 5000000 |
-| Suresh Babu    | 210000 | 3000000 |
-+----------------+--------+---------+*/
- 
