@@ -95,3 +95,103 @@ INSERT INTO Projects VALUES
 (6, 'Cloud Migration', 1, 'Active');
 
 
+
+-- Q1 
+SELECT name , 
+  CASE 
+    WHEN salary >= 120000 THEN 'High'
+    WHEN salary >= 70000 THEN 'Medium'
+    ELSE 'Low'
+  END AS salary_band
+FROM Employees;
+
+
+
+-- Q2
+SELECT name , 
+  CASE 
+    WHEN experience_years >= 10 THEN 'Senior' 
+    WHEN experience_years >= 5 THEN 'Mid'
+    ELSE 'Junior'
+  END AS exp_levels
+FROM Employees ;
+
+
+
+-- Q3
+SELECT name ,
+  CASE 
+    WHEN department IS NULL THEN 'Unassigned'
+    ELSE department
+  END AS department
+FROM Employees ;
+
+
+-- Q4
+SELECT
+  CASE 
+    WHEN experience_years >= 10 THEN 'Senior' 
+    WHEN experience_years >= 5 THEN 'Mid'
+    ELSE 'Junior'
+  END AS exp_levels , 
+  COUNT(*) AS total_emp
+FROM Employees 
+GROUP BY exp_levels ; 
+/* OUTPUT
++------------+-----------+
+| exp_levels | total_emp |
++------------+-----------+
+| Junior     |        18 |
+| Mid        |        12 |
+| Senior     |        15 |
++------------+-----------+ */
+
+
+-- Q5
+SELECT
+  CASE 
+    WHEN salary >= 120000 THEN 'High'
+    WHEN salary >= 70000 THEN 'Medium'
+    ELSE 'Low'
+  END AS salary_band , 
+  ROUND(AVG(age)) AS avg_age
+FROM Employees
+GROUP BY salary_band;
+/*
++-------------+---------+
+| salary_band | avg_age |
++-------------+---------+
+| Medium      |      30 |
+| High        |      41 |
+| Low         |      25 |
++-------------+---------+ */
+
+
+
+-- Q6
+SELECT e.name , d.dept_name , 
+  CASE 
+    WHEN d.budget >= 3000000 THEN 'Large'
+    ELSE 'Small'
+  END AS budget_size 
+FROM Employees e 
+INNER JOIN Departments d 
+ON e.dept_id = d.dept_id ;  
+
+-- Q7
+SELECT department ,
+  COUNT(*) AS total_emp ,
+  SUM(CASE WHEN salary >= 120000 THEN 1 ELSE 0 END) AS hight_salary
+FROM Employees
+GROUP BY department;
+/* OUTPUT
++-------------+-----------+--------------+
+| department  | total_emp | hight_salary |
++-------------+-----------+--------------+
+| Engineering |        15 |            7 |
+| Sales       |         8 |            0 |
+| Marketing   |         9 |            0 |
+| Finance     |        10 |            9 |
+| NULL        |         3 |            0 |
++-------------+-----------+--------------+*/
+
