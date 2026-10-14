@@ -229,3 +229,5 @@ JOIN Projects p ON d.dept_id = p.dept_id
 WHERE p.status = 'Active'
 GROUP BY d.dept_name;
 
+
+
